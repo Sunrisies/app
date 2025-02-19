@@ -1,118 +1,102 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Text} from '@react-navigation/elements';
+import {NavigationContainer} from '@react-navigation/native';
+import * as React from 'react';
+import {StyleSheet, View} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+import IconMater from 'react-native-vector-icons/MaterialIcons';
+import HomeScreen from './src/HomeScreen';
+import userScreen from './src/userScreen';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const Article = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Article Screen</Text>
     </View>
   );
-}
+};
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const Tab = createBottomTabNavigator();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+function MyTabs() {
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {position: 'absolute'},
+        header: ({options, route}) => {
+          console.log('options', options);
+          console.log('route', route);
+          return (
+            <View
+              style={{
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text>{route.name}</Text>
+            </View>
+          );
+        },
+      }}>
+      <Tab.Screen
+        name="首页"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: '首页',
+          tabBarIcon: ({size, color}) => (
+            <Icon name="home" size={size} color={color} />
+          ),
+        }}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <Tab.Screen
+        name="文章"
+        component={Article}
+        options={{
+          tabBarLabel: '文章',
+          tabBarIcon: ({color, size}) => (
+            <IconMater name="article" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="我的"
+        component={userScreen}
+        options={{
+          tabBarLabel: '我的',
+          tabBarIcon: ({size, color}) => {
+            return <Icon name="user" size={size} color={color} />;
+          },
+        }}
+      />
+    </Tab.Navigator>
   );
 }
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: 'white',
+    height: 60,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+    paddingBottom: 10,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  darkContainer: {
+    backgroundColor: 'black',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  tabItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  highlight: {
-    fontWeight: '700',
+  tabText: {
+    color: 'gray',
+    fontSize: 12,
   },
 });
-
-export default App;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+  );
+}
