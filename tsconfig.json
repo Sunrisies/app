@@ -4,7 +4,10 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "types": ["react-native", "jest"],
+    "types": [
+      "react-native",
+      "jest"
+    ],
     "lib": [
       "es2019",
       "es2020.bigint",
@@ -26,7 +29,9 @@
     "isolatedModules": true,
     "strict": true,
     "moduleResolution": "bundler",
-    "customConditions": ["react-native"],
+    "customConditions": [
+      "react-native"
+    ],
     "allowImportingTsExtensions": true,
     "allowArbitraryExtensions": true,
     "resolveJsonModule": true,
@@ -35,9 +40,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     // Causes issues with package.json "exports"
-    "forceConsistentCasingInFileNames": false
+    "forceConsistentCasingInFileNames": false,
+    "experimentalDecorators":true,
   },
   "exclude": [
     "**/Pods/**"
+  ],
+  "include": [
+    "./nativewind-env.d.ts",
+    "nativewind-env.d.ts"
   ]
 }

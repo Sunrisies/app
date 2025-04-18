@@ -7,14 +7,9 @@ import Icon from 'react-native-vector-icons/Feather';
 import IconMater from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from './src/HomeScreen';
 import userScreen from './src/userScreen';
-
-const Article = () => {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Article Screen</Text>
-    </View>
-  );
-};
+import ArticleScreen from './src/pages/article';
+// import './global.css';
+import './src/styles/index.css';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,16 +21,21 @@ function MyTabs() {
         header: ({options, route}) => {
           console.log('options', options);
           console.log('route', route);
-          return (
-            <View
-              style={{
-                height: 50,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text>{route.name}</Text>
-            </View>
-          );
+          return null;
+          // return (
+          //   <View
+          //     className="w-10 h-10 bg-blue-500 text-white"
+          //     // style={{
+          //     //   height: 50,
+          //     //   justifyContent: 'center',
+          //     //   alignItems: 'center',
+          //     // }}
+          //   >
+          //     <Text className="text-lg border border-red-400 text-red">
+          //       {route.name}11
+          //     </Text>
+          //   </View>
+          // );
         },
       }}>
       <Tab.Screen
@@ -50,7 +50,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="文章"
-        component={Article}
+        component={ArticleScreen}
         options={{
           tabBarLabel: '文章',
           tabBarIcon: ({color, size}) => (
